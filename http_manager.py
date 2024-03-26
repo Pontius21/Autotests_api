@@ -16,11 +16,11 @@ class HttpManager:
         return response
 
     @staticmethod
-    def post(url, body):
-        response = requests.post(url, json=body, headers={'Cookie': HttpManager.auth_token})
+    def post(url, body, body1=None, files=None):
+        response = requests.post(url, json=body, data=body1, files=files, headers={'Cookie': HttpManager.auth_token})
         return response
 
     @staticmethod
-    def delete(url):
-        response = requests.delete(url, headers={'Cookie': HttpManager.auth_token})
+    def delete(url, body):
+        response = requests.delete(url, json=body, headers={'Cookie': HttpManager.auth_token})
         return response

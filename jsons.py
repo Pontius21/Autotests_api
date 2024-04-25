@@ -42,7 +42,7 @@ class JSONS:
             "Name": directory_name,
             "Description": "temp",
             "Order": 100,
-            "Type": "Public",
+            "Type": "Default",
             "IconId": None,
             "RoleIds": [],
             "UserIds": [],
@@ -76,6 +76,21 @@ class JSONS:
         json = {
             'Ids': [ids],
             'ToDirectoryId': to_directory_id
+        }
+        return json
+
+    @staticmethod
+    def for_favorites(document_id):
+        json = {
+            'EntityIds': [document_id],
+            'Type': "Document"
+        }
+        return json
+
+    @staticmethod
+    def for_restore(ids):
+        json = {
+            'Ids': [ids]
         }
         return json
 

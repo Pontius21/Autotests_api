@@ -8,15 +8,19 @@ parser = configparser.ConfigParser()
 parser.read('config.ini')
 BASE_URL = parser.get('config', 'url')
 
+URL = BASE_URL + "/api/v1/DocumentDirectory/"
+
 
 class DocumentDirectory:
-    GET_DIRECTORY_URL = BASE_URL + "/api/v1/DocumentDirectory/Get"
-    CREATE_DIRECTORY_URL = BASE_URL + "/api/v1/DocumentDirectory/AddSubDirectory"
-    DELETE_DIRECTORY_URL = BASE_URL + "/api/v1/DocumentDirectory/Delete"
-    SEARCH_URL = BASE_URL + "/api/v1/DocumentDirectory/Search"
-    COPY_URL = BASE_URL + "/api/v1/DocumentDirectory/Copy"
-    MOVE_URL = BASE_URL + "/api/v1/DocumentDirectory/Move"
-    RENAME_URL = BASE_URL + "/api/v1/DocumentDirectory/Rename"
+    GET_DIRECTORY_URL = URL + "Get"
+    CREATE_DIRECTORY_URL = URL + "AddSubDirectory"
+    DELETE_DIRECTORY_URL = URL + "Delete"
+    SEARCH_URL = URL + "Search"
+    COPY_URL = URL + "Copy"
+    MOVE_URL = URL + "Move"
+    RENAME_URL = URL + "Rename"
+    ARCHIVE_URL = URL + "Archive"
+    RESTORE_URL = URL + "Restore"
 
     @staticmethod
     def directory_get():
@@ -26,13 +30,13 @@ class DocumentDirectory:
 
     @staticmethod
     def create_directory(directory_name):
-        # создание папки
+        # создание каталога
         response = HttpManager.post(DocumentDirectory.CREATE_DIRECTORY_URL, JSONS.for_create_directory(directory_name))
         return response
 
     @staticmethod
     def delete_directory(directory_id):
-        # Удаление папки
+        # Удаление каталога
         response = HttpManager.delete(DocumentDirectory.DELETE_DIRECTORY_URL + f"?id={directory_id}",
                                       JSONS.for_delete(directory_id))
         return response
@@ -53,14 +57,14 @@ class DocumentDirectory:
 
     @staticmethod
     def copy_directory(dfirectory_id, to_dfirectory_id):
-        # Копирование папки
+        # Копирование каталога
         response = HttpManager.get(
             DocumentDirectory.COPY_URL + f"?rule=1&id={dfirectory_id}&toDirectoryId={to_dfirectory_id}")
         return response
 
     @staticmethod
     def move_directory(dfirectory_id, to_dfirectory_id):
-        # Перемещение папки
+        # Перемещение каталога
         response = HttpManager.get(DocumentDirectory.MOVE_URL + f"?id={dfirectory_id}&toDirectoryId={to_dfirectory_id}")
         return response
 
@@ -68,4 +72,16 @@ class DocumentDirectory:
     def rename_directory(directory_id, new_name):
         # Переименование каталога
         response = HttpManager.get(DocumentDirectory.RENAME_URL + f"?id={directory_id}&name={new_name}")
+        return response
+
+    @staticmethod
+    def archive_directory(directory_id):
+        # Скачивание каталога
+        response = HttpManager.get(DocumentDirectory.ARCHIVE_URL + f"?id={directory_id}")
+        return response
+
+    @staticmethod
+    def restore_directory(directory_id):
+        # восстановление каталога
+        response = HttpManager.post(DocumentDirectory.RESTORE_URL, JSONS.for_restore(directory_id))
         return response

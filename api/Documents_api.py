@@ -7,16 +7,18 @@ parser = configparser.ConfigParser()
 parser.read('config.ini')
 BASE_URL = parser.get('config', 'url')
 
+URL = BASE_URL + "/api/v1/Documents/"
 
 
 class Documents:
-    CREATE_URL = BASE_URL + "/api/v1/Documents/Create"
-    DELETE_URL = BASE_URL + "/api/v1/Documents/Delete"
-    UPLOAD_URL = BASE_URL + "/api/v1/Documents/Upload"
-    COPY_URL = BASE_URL + "/api/v1/Documents/Copy"
-    DOWNLOAD_URL = BASE_URL + "/api/v1/Documents/Download"
-    MOVE_URL = BASE_URL + "/api/v1/Documents/Move"
-    RENAME_URL = BASE_URL + "/api/v1/Documents/Rename"
+    CREATE_URL = URL + "Create"
+    DELETE_URL = URL + "Delete"
+    UPLOAD_URL = URL + "Upload"
+    COPY_URL = URL + "Copy"
+    DOWNLOAD_URL = URL + "Download"
+    MOVE_URL = URL + "Move"
+    RENAME_URL = URL + "Rename"
+    RESTORE_URL = URL + "Restore"
 
     @staticmethod
     def create_document(document_name):
@@ -70,4 +72,10 @@ class Documents:
     def rename_document(document_id, new_name):
         # Переименование документа
         response = HttpManager.get(Documents.RENAME_URL + f"?id={document_id}&name={new_name}")
+        return response
+
+    @staticmethod
+    def restore_document(document_id):
+        # Восстановление документа
+        response = HttpManager.post(Documents.RESTORE_URL, JSONS.for_restore(document_id))
         return response

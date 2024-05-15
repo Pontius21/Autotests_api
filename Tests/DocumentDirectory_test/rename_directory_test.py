@@ -7,6 +7,7 @@ class TestRenameDirectory:
     def test_rename_directory(self):
         # создание каталога, переименование каталога, удаление каталога
         response = DocumentDirectory.create_directory("Папка")
+        assert_status_code(response)
         directory_id = response.json()["Id"]
 
         new_name = "Новое_название"
@@ -17,4 +18,5 @@ class TestRenameDirectory:
         assert response.json()["Id"] == directory_id
         assert response.json()["Name"] == new_name
 
-        DocumentDirectory.delete_directory(directory_id)
+        response = DocumentDirectory.delete_directory(directory_id)
+        assert_status_code(response)

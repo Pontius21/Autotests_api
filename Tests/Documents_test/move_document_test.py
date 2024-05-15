@@ -7,9 +7,11 @@ class TestMoveDocument:
     def test_move_document(self):
         # создание документа и папки, перемещение документа в папку, удаление папки
         response = Documents.create_document("Документ.docx")
+        assert_status_code(response)
         document_id = response.json()[0]["Id"]
 
         response = DocumentDirectory.create_directory("Папка")
+        assert_status_code(response)
         directory_id = response.json()["Id"]
 
         response = Documents.move_document(document_id, directory_id)

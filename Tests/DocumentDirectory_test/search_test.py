@@ -16,6 +16,7 @@ class TestSearch:
         document1_id = response.json()[0]["Id"]
 
         response = Documents.create_document(document2_name)
+        assert_status_code(response)
         document2_id = response.json()[0]["Id"]
 
         search_text = document2_name
@@ -32,7 +33,8 @@ class TestSearch:
         assert_status_code(response)
         assert response.json()["Document"]["Items"] == []
 
-        Documents.delete([document1_id, document2_id])
+        response = Documents.delete([document1_id, document2_id])
+        assert_status_code(response)
 
     def test_search_directory(self):
         # создание каталогов, поиск существующего каталога, поиск несуществующего каталога, удаление каталогов
@@ -40,9 +42,11 @@ class TestSearch:
         directory2_name = "папка22"
 
         response = DocumentDirectory.create_directory(directory1_name)
+        assert_status_code(response)
         directory1_id = response.json()["Id"]
 
         response = DocumentDirectory.create_directory(directory2_name)
+        assert_status_code(response)
         directory2_id = response.json()["Id"]
 
         search_text = directory2_name
@@ -59,5 +63,7 @@ class TestSearch:
         assert_status_code(response)
         assert response.json()["Directory"]["Items"] == []
 
-        DocumentDirectory.delete_directory(directory1_id)
-        DocumentDirectory.delete_directory(directory2_id)
+        response = DocumentDirectory.delete_directory(directory1_id)
+        assert_status_code(response)
+        response = DocumentDirectory.delete_directory(directory2_id)
+        assert_status_code(response)

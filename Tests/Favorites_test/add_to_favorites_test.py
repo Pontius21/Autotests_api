@@ -7,9 +7,11 @@ class TestAddFavorites:
     def test_add_to_favorites(self):
         # создание документа, добавление документа в избранное, удаление документа
         response = Documents.create_document("Избранное.docx")
+        assert_status_code(response)
         document_id = response.json()[0]["Id"]
 
         response = Favorites.add_to_favorites(document_id)
         assert_status_code(response)
 
-        Documents.delete([document_id])
+        response = Documents.delete([document_id])
+        assert_status_code(response)

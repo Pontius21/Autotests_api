@@ -7,6 +7,7 @@ class TestRenameDocument:
     def test_rename_document(self):
         # создание документа, переименование документа, удаление документа
         response = Documents.create_document("Документ.docx")
+        assert_status_code(response)
         document_id = response.json()[0]["Id"]
 
         new_name = "Новое_название.docx"
@@ -17,4 +18,5 @@ class TestRenameDocument:
         assert response.json()["Id"] == document_id
         assert response.json()["Name"] == new_name
 
-        Documents.delete([document_id])
+        response = Documents.delete([document_id])
+        assert_status_code(response)

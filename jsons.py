@@ -12,7 +12,7 @@ class JSONS:
     @staticmethod
     def for_create_document(document_name):
         json = {
-            "DirectoryId": 1,
+            "DirectoryId": 542,
             "Name": document_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         }
@@ -21,7 +21,7 @@ class JSONS:
     @staticmethod
     def for_create_table(table_name):
         json = {
-            "DirectoryId": 1,
+            "DirectoryId": 542,
             "Name": table_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         }
@@ -30,7 +30,7 @@ class JSONS:
     @staticmethod
     def for_create_presentation(presentation_name):
         json = {
-            "DirectoryId": 1,
+            "DirectoryId": 542,
             "Name": presentation_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
         }
@@ -46,7 +46,7 @@ class JSONS:
             "IconId": None,
             "RoleIds": [],
             "UserIds": [],
-            "ParentId": 1
+            "ParentId": 542
             }
         return json
 
@@ -60,7 +60,7 @@ class JSONS:
     @staticmethod
     def for_upload():
         json = {
-            'DirectoryId': '1'
+            'DirectoryId': '542'
         }
         return json
 

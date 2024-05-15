@@ -7,9 +7,11 @@ class TestCopyDocument:
     def test_copy_document(self):
         # создание документа и папки, копирование документа в папку, удаление папки и документа
         response = Documents.create_document("Документ.docx")
+        assert_status_code(response)
         document_id = response.json()[0]["Id"]
 
         response = DocumentDirectory.create_directory("Папка")
+        assert_status_code(response)
         directory_id = response.json()["Id"]
 
         response = Documents.copy_document(document_id, directory_id)

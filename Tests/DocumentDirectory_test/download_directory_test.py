@@ -11,4 +11,5 @@ class TestDownloadDirectory:
         response = DocumentDirectory.archive_directory(directory_id)
         assert_status_code(response)
 
-        DocumentDirectory.delete_directory(directory_id)
+        response = DocumentDirectory.delete_directory(directory_id)
+        assert_status_code(response)

@@ -1,6 +1,12 @@
 from api.DocumentDirectory_api import DocumentDirectory
 from api.Documents_api import Documents
 from assertion import assert_status_code
+import configparser
+
+parser = configparser.ConfigParser()
+parser.read('config.ini')
+id_my_documents = parser.get('config', 'id_my_documents')
+
 
 
 class TestDirectoryGet:
@@ -33,7 +39,7 @@ class TestDirectoryGet:
         assert_status_code(response)
         directory2_id = response.json()["Id"]
 
-        response = DocumentDirectory.sort(542, 1, 0)
+        response = DocumentDirectory.sort(id_my_documents, 1, 0)
         assert_status_code(response)
 
         assert response.json()[0]["Children"][0]["Name"] == directory1_name
@@ -48,7 +54,7 @@ class TestDirectoryGet:
         assert response.json()[0]["Documents"][1]["Name"] == document2_name
         assert response.json()[0]["Documents"][1]["Id"] == document2_id
 
-        response = DocumentDirectory.sort(542, 1, 1)
+        response = DocumentDirectory.sort(id_my_documents, 1, 1)
         assert_status_code(response)
 
         assert response.json()[0]["Children"][0]["Name"] == directory2_name

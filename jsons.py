@@ -1,3 +1,10 @@
+import configparser
+
+parser = configparser.ConfigParser()
+parser.read('config.ini')
+id_my_documents = parser.get('config', 'id_my_documents')
+
+
 class JSONS:
 
     @staticmethod
@@ -12,7 +19,7 @@ class JSONS:
     @staticmethod
     def for_create_document(document_name):
         json = {
-            "DirectoryId": 542,
+            "DirectoryId": id_my_documents,
             "Name": document_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         }
@@ -21,7 +28,7 @@ class JSONS:
     @staticmethod
     def for_create_table(table_name):
         json = {
-            "DirectoryId": 542,
+            "DirectoryId": id_my_documents,
             "Name": table_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         }
@@ -30,7 +37,7 @@ class JSONS:
     @staticmethod
     def for_create_presentation(presentation_name):
         json = {
-            "DirectoryId": 542,
+            "DirectoryId": id_my_documents,
             "Name": presentation_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
         }
@@ -46,8 +53,8 @@ class JSONS:
             "IconId": None,
             "RoleIds": [],
             "UserIds": [],
-            "ParentId": 542
-            }
+            "ParentId": id_my_documents
+        }
         return json
 
     @staticmethod
@@ -60,7 +67,7 @@ class JSONS:
     @staticmethod
     def for_upload():
         json = {
-            'DirectoryId': '542'
+            'DirectoryId': f'{id_my_documents}'
         }
         return json
 
@@ -93,4 +100,3 @@ class JSONS:
             'Ids': [ids]
         }
         return json
-

@@ -1,9 +1,8 @@
 import configparser
 
+from assertion import assert_status_code
 from http_manager import HttpManager
 from jsons import JSONS
-
-auth_token = []
 
 parser = configparser.ConfigParser()
 parser.read('config.ini')
@@ -18,4 +17,4 @@ class Auth:
     @staticmethod
     def login():
         response = HttpManager.auth(Auth.LOGIN_URL, JSONS.for_login(login, password))
-        assert response.status_code == 200
+        assert_status_code(response)

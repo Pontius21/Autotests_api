@@ -16,8 +16,7 @@ class TestDirectoryGet:
         assert_status_code(response)
 
     def test_sort(self):
-        # создание документов и каталогов, сортировка по названию (по возрастанию и убыванию), удаление каталогов и
-        # множественное удаление документов
+        # создание документов и каталогов, сортировка по названию (по возрастанию и убыванию)
         document1_name = "Документ1.docx"
         document2_name = "Документ2.docx"
         directory1_name = "Папка1"
@@ -68,11 +67,3 @@ class TestDirectoryGet:
 
         assert response.json()[0]["Documents"][1]["Name"] == document1_name
         assert response.json()[0]["Documents"][1]["Id"] == document1_id
-
-        response = DocumentDirectory.delete_directory(directory1_id)
-        assert_status_code(response)
-        response = DocumentDirectory.delete_directory(directory2_id)
-        assert_status_code(response)
-
-        response = Documents.delete([document1_id, document2_id])
-        assert_status_code(response)

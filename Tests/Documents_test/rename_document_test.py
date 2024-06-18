@@ -5,7 +5,7 @@ from assertion import assert_status_code
 
 class TestRenameDocument:
     def test_rename_document(self):
-        # создание документа, переименование документа, удаление документа
+        # создание документа, переименование документа
         response = Documents.create_document("Документ.docx")
         assert_status_code(response)
         document_id = response.json()[0]["Id"]
@@ -17,6 +17,3 @@ class TestRenameDocument:
         assert_status_code(response)
         assert response.json()["Id"] == document_id
         assert response.json()["Name"] == new_name
-
-        response = Documents.delete([document_id])
-        assert_status_code(response)

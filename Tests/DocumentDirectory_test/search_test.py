@@ -6,8 +6,7 @@ from assertion import assert_status_code
 
 class TestSearch:
     def test_search_document(self):
-        # создание документов, поиск существующего документа, поиск несуществующего документа,
-        # множественное удаление документов
+        # создание документов, поиск существующего документа, поиск несуществующего документа
         document1_name = "поиск1.docx"
         document2_name = "поиск2.docx"
 
@@ -33,11 +32,8 @@ class TestSearch:
         assert_status_code(response)
         assert response.json()["Document"]["Items"] == []
 
-        response = Documents.delete([document1_id, document2_id])
-        assert_status_code(response)
-
     def test_search_directory(self):
-        # создание каталогов, поиск существующего каталога, поиск несуществующего каталога, удаление каталогов
+        # создание каталогов, поиск существующего каталога, поиск несуществующего каталога
         directory1_name = "папка11"
         directory2_name = "папка22"
 
@@ -62,8 +58,3 @@ class TestSearch:
         response = DocumentDirectory.search(encoded_search_text)
         assert_status_code(response)
         assert response.json()["Directory"]["Items"] == []
-
-        response = DocumentDirectory.delete_directory(directory1_id)
-        assert_status_code(response)
-        response = DocumentDirectory.delete_directory(directory2_id)
-        assert_status_code(response)

@@ -22,6 +22,7 @@ class DocumentDirectory:
     RENAME_URL = URL + "/Rename"
     ARCHIVE_URL = URL + "/Archive"
     RESTORE_URL = URL + "/Restore"
+    CLEAR_URL = URL + "/Clear"
 
     @staticmethod
     def directory_get():
@@ -95,4 +96,11 @@ class DocumentDirectory:
         # восстановление каталога
         response = HttpManager.post(DocumentDirectory.RESTORE_URL, JSONS.for_restore(directory_id))
         DocumentDirectory.LOGGER.info('восстановление каталога')
+        return response
+
+    @staticmethod
+    def сlear_directory(directory_id):
+        # очистка каталога
+        response = HttpManager.get(DocumentDirectory.CLEAR_URL + f"?id={directory_id}")
+        DocumentDirectory.LOGGER.info('очистка каталога')
         return response

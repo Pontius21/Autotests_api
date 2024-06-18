@@ -5,7 +5,7 @@ from assertion import assert_status_code
 
 class TestRenameDirectory:
     def test_rename_directory(self):
-        # создание каталога, переименование каталога, удаление каталога
+        # создание каталога, переименование каталога
         response = DocumentDirectory.create_directory("Папка")
         assert_status_code(response)
         directory_id = response.json()["Id"]
@@ -17,6 +17,3 @@ class TestRenameDirectory:
         assert_status_code(response)
         assert response.json()["Id"] == directory_id
         assert response.json()["Name"] == new_name
-
-        response = DocumentDirectory.delete_directory(directory_id)
-        assert_status_code(response)

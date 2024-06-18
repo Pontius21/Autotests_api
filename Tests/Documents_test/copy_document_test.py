@@ -5,7 +5,7 @@ from assertion import assert_status_code
 
 class TestCopyDocument:
     def test_copy_document(self):
-        # создание документа и папки, копирование документа в папку, удаление папки и документа
+        # создание документа и папки, копирование документа в папку
         response = Documents.create_document("Документ.docx")
         assert_status_code(response)
         document_id = response.json()[0]["Id"]
@@ -15,10 +15,4 @@ class TestCopyDocument:
         directory_id = response.json()["Id"]
 
         response = Documents.copy_document(document_id, directory_id)
-        assert_status_code(response)
-
-        response = DocumentDirectory.delete_directory(directory_id)
-        assert_status_code(response)
-
-        response = Documents.delete([document_id])
         assert_status_code(response)

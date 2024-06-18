@@ -1,6 +1,6 @@
 import configparser
+import logging
 
-from assertion import assert_status_code
 from http_manager import HttpManager
 from jsons import JSONS
 
@@ -12,9 +12,11 @@ password = parser.get('config', 'password')
 
 
 class Auth:
+    LOGGER = logging.getLogger(__name__)
     LOGIN_URL = BASE_URL + "/api/v2/auth/login"
 
     @staticmethod
     def login():
         response = HttpManager.auth(Auth.LOGIN_URL, JSONS.for_login(login, password))
-        assert_status_code(response)
+        Auth.LOGGER.info('авторизация')
+        return response

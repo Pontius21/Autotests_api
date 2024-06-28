@@ -1,8 +1,3 @@
-import configparser
-
-parser = configparser.ConfigParser()
-parser.read('config.ini')
-id_my_documents = parser.get('config', 'id_my_documents')
 
 
 class JSONS:
@@ -17,34 +12,34 @@ class JSONS:
         return json
 
     @staticmethod
-    def for_create_document(document_name):
+    def for_create_document(directory_id, document_name):
         json = {
-            "DirectoryId": id_my_documents,
+            "DirectoryId": directory_id,
             "Name": document_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         }
         return json
 
     @staticmethod
-    def for_create_table(table_name):
+    def for_create_table(directory_id, table_name):
         json = {
-            "DirectoryId": id_my_documents,
+            "DirectoryId": directory_id,
             "Name": table_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         }
         return json
 
     @staticmethod
-    def for_create_presentation(presentation_name):
+    def for_create_presentation(directory_id, presentation_name):
         json = {
-            "DirectoryId": id_my_documents,
+            "DirectoryId": directory_id,
             "Name": presentation_name,
             "MimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
         }
         return json
 
     @staticmethod
-    def for_create_directory(directory_name):
+    def for_create_directory(directory_id, directory_name):
         json = {
             "Name": directory_name,
             "Description": "temp",
@@ -53,7 +48,7 @@ class JSONS:
             "IconId": None,
             "RoleIds": [],
             "UserIds": [],
-            "ParentId": id_my_documents
+            "ParentId": directory_id
         }
         return json
 
@@ -65,9 +60,9 @@ class JSONS:
         return json
 
     @staticmethod
-    def for_upload():
+    def for_upload(directory_id):
         json = {
-            'DirectoryId': f'{id_my_documents}'
+            'DirectoryId': f'{directory_id}'
         }
         return json
 

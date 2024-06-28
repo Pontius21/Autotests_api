@@ -4,13 +4,13 @@ from assertion import assert_status_code
 
 
 class TestCopyDocument:
-    def test_copy_document(self):
-        # создание документа и папки, копирование документа в папку
-        response = Documents.create_document("Документ.docx")
+    def test_copy_document(self, directory_id_my_documents):
+        # создание документа и каталога, копирование документа в каталог
+        response = Documents.create_document(directory_id_my_documents, "Документ.docx")
         assert_status_code(response)
         document_id = response.json()[0]["Id"]
 
-        response = DocumentDirectory.create_directory("Папка")
+        response = DocumentDirectory.create_directory(directory_id_my_documents, "Папка")
         assert_status_code(response)
         directory_id = response.json()["Id"]
 

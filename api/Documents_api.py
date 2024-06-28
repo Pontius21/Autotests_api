@@ -23,23 +23,24 @@ class Documents:
     RESTORE_URL = URL + "/Restore"
 
     @staticmethod
-    def create_document(document_name):
+    def create_document(directory_id, document_name):
         # создание документа
-        response = HttpManager.post(Documents.CREATE_URL, JSONS.for_create_document(document_name))
+        response = HttpManager.post(Documents.CREATE_URL, JSONS.for_create_document(directory_id, document_name))
         Documents.LOGGER.info('создание документа')
         return response
 
     @staticmethod
-    def create_table(table_name):
+    def create_table(directory_id, table_name):
         # создание таблицы
-        response = HttpManager.post(Documents.CREATE_URL, JSONS.for_create_table(table_name))
+        response = HttpManager.post(Documents.CREATE_URL, JSONS.for_create_table(directory_id, table_name))
         Documents.LOGGER.info('создание таблицы')
         return response
 
     @staticmethod
-    def create_presentation(presentation_name):
+    def create_presentation(directory_id, presentation_name):
         # создание презентации
-        response = HttpManager.post(Documents.CREATE_URL, JSONS.for_create_presentation(presentation_name))
+        response = HttpManager.post(Documents.CREATE_URL,
+                                    JSONS.for_create_presentation(directory_id, presentation_name))
         Documents.LOGGER.info('создание презентации')
         return response
 
@@ -51,9 +52,10 @@ class Documents:
         return response
 
     @staticmethod
-    def upload(file_name):
+    def upload(directory_id, file_name):
         # загрузка документов
-        response = HttpManager.post(Documents.UPLOAD_URL, None, JSONS.for_upload(), JSONS.for_upload_file(file_name))
+        response = HttpManager.post(Documents.UPLOAD_URL, None, JSONS.for_upload(directory_id),
+                                    JSONS.for_upload_file(file_name))
         Documents.LOGGER.info('загрузка документа')
         return response
 

@@ -32,9 +32,10 @@ class DocumentDirectory:
         return response
 
     @staticmethod
-    def create_directory(directory_name):
+    def create_directory(directory_id, directory_name):
         # создание каталога
-        response = HttpManager.post(DocumentDirectory.CREATE_DIRECTORY_URL, JSONS.for_create_directory(directory_name))
+        response = HttpManager.post(DocumentDirectory.CREATE_DIRECTORY_URL,
+                                    JSONS.for_create_directory(directory_id, directory_name))
         DocumentDirectory.LOGGER.info('создание каталога')
         return response
 

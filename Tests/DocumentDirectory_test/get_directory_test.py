@@ -1,12 +1,6 @@
 from api.DocumentDirectory_api import DocumentDirectory
 from api.Documents_api import Documents
 from assertion import assert_status_code
-import configparser
-
-parser = configparser.ConfigParser()
-parser.read('config.ini')
-id_my_documents = parser.get('config', 'id_my_documents')
-
 
 
 class TestDirectoryGet:
@@ -15,30 +9,30 @@ class TestDirectoryGet:
         response = DocumentDirectory.directory_get()
         assert_status_code(response)
 
-    def test_sort(self):
+    def test_sort(self, directory_id_my_documents):
         # создание документов и каталогов, сортировка по названию (по возрастанию и убыванию)
         document1_name = "Документ1.docx"
         document2_name = "Документ2.docx"
         directory1_name = "Папка1"
         directory2_name = "Папка2"
 
-        response = Documents.create_document(document1_name)
+        response = Documents.create_document(directory_id_my_documents, document1_name)
         assert_status_code(response)
         document1_id = response.json()[0]["Id"]
 
-        response = Documents.create_document(document2_name)
+        response = Documents.create_document(directory_id_my_documents, document2_name)
         assert_status_code(response)
         document2_id = response.json()[0]["Id"]
 
-        response = DocumentDirectory.create_directory(directory1_name)
+        response = DocumentDirectory.create_directory(directory_id_my_documents, directory1_name)
         assert_status_code(response)
         directory1_id = response.json()["Id"]
 
-        response = DocumentDirectory.create_directory(directory2_name)
+        response = DocumentDirectory.create_directory(directory_id_my_documents, directory2_name)
         assert_status_code(response)
         directory2_id = response.json()["Id"]
 
-        response = DocumentDirectory.sort(id_my_documents, 1, 0)
+        response = DocumentDirectory.sort(directory_id_my_documents, 1, 0)
         assert_status_code(response)
 
         assert response.json()[0]["Children"][0]["Name"] == directory1_name
@@ -53,7 +47,7 @@ class TestDirectoryGet:
         assert response.json()[0]["Documents"][1]["Name"] == document2_name
         assert response.json()[0]["Documents"][1]["Id"] == document2_id
 
-        response = DocumentDirectory.sort(id_my_documents, 1, 1)
+        response = DocumentDirectory.sort(directory_id_my_documents, 1, 1)
         assert_status_code(response)
 
         assert response.json()[0]["Children"][0]["Name"] == directory2_name

@@ -4,9 +4,9 @@ from assertion import assert_status_code
 
 
 class TestRenameDocument:
-    def test_rename_document(self):
+    def test_rename_document(self, directory_id_my_documents):
         # создание документа, переименование документа
-        response = Documents.create_document("Документ.docx")
+        response = Documents.create_document(directory_id_my_documents, "Документ.docx")
         assert_status_code(response)
         document_id = response.json()[0]["Id"]
 

@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from api.Auth_api import Auth
@@ -30,3 +32,4 @@ def сlear_directory(directory_id_my_documents):
     yield
     response = DocumentDirectory.сlear_directory(directory_id_my_documents)
     assert_status_code(response)
+    time.sleep(0.2)
